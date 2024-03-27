@@ -1,0 +1,39 @@
+<style>
+  .float-right {
+    float: right;
+  }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+<.header>
+  <p><%= @challenge.name %></p>
+  <:subtitle><%= @challenge.description %></:subtitle>
+  <:actions>
+   
+    <.link href={~p"/challenges/#{@challenge}/edit"}>
+      <.button>Edit challenge</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Goal"><strong><%= @challenge.goal %> <%= @challenge.units %></strong></:item>
+  <:item title="Current progress"><strong><%= @total_progress %> <%= @challenge.units %> </strong></:item>
+  <:item title="Complete by"><strong><%= @challenge.ends_at %></strong></:item>
+</.list>
+
+<.link href={~p"/challenges/#{@challenge}/activities/new"}>
+  <.button class="bg-blue-500 text-white float-right">Add Activity</.button>
+</.link>
+<.table id="activities" rows={@activities} row_click={&JS.navigate(~p"/challenges/#{@challenge.id}/activities/#{&1}")}>
+  <:col :let={activity} label="Amount"><%= activity.amount %></:col>
+  <:col :let={activity} label="Note"><%= activity.note %></:col>
+  <:action :let={activity}>
+    <.link navigate={~p"/challenges/#{@challenge.id}/activities/#{activity}/edit"}><.button><i class="fas fa-pen"></i></.button></.link>
+  </:action>
+  <:action :let={activity}>
+    <.link href={~p"/challenges/#{@challenge.id}/activities/#{activity}"} method="delete" data-confirm="Are you sure?">
+      <.button><i class="fas fa-trash"></i></.button>
+    </.link>
+  </:action>
+</.table>

@@ -1,0 +1,6 @@
+<.header>
+  New Activity
+  <:subtitle>Use this form to manage activity records in your database.</:subtitle>
+</.header>
+<.activity_form changeset={@changeset} action={~p"/challenges/#{@challenge_id}/activities"} />
+<.back navigate={~p"/challenges/#{@challenge_id}/activities"}>Back to activities</.back>
